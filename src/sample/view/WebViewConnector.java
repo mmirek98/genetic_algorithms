@@ -1,15 +1,15 @@
-package sample;
+package sample.view;
 
 import netscape.javascript.JSObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class Connector {
+public class WebViewConnector {
     private HashMap<String, String> parameters = new HashMap<>();
     private JSObject jsConnector;
 
-    public Connector(JSObject jsConnector) {
+    public WebViewConnector(JSObject jsConnector) {
         this.jsConnector = jsConnector;
     }
 

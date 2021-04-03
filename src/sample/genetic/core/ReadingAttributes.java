@@ -85,39 +85,23 @@ public class ReadingAttributes {
         private int eliteElements;
         private int chromosomeAccuracy;
 
-        public AttributesBuilder gradeStrategy(final int strategy) {
-            switch (strategy) {
-                case 0 -> gradeStrategy = StrategyEnums.GradeOptions.MAXIMAL_GRADE;
-                case 1 -> gradeStrategy = StrategyEnums.GradeOptions.MINIMAL_GRADE;
-            }
+        public AttributesBuilder gradeStrategy(final StrategyEnums.GradeOptions strategy) {
+            gradeStrategy = strategy;
             return this;
         }
 
-        public AttributesBuilder mutationStrategy(final int strategy) {
-            switch (strategy) {
-                case 0 -> mutationStrategy = StrategyEnums.MutationOptions.EDGE_MUTATION;
-                case 1 -> mutationStrategy = StrategyEnums.MutationOptions.ONE_POINT_MUTATION;
-                case 2 -> mutationStrategy = StrategyEnums.MutationOptions.TWO_POINTS_MUTATION;
-            }
+        public AttributesBuilder mutationStrategy(final StrategyEnums.MutationOptions strategy) {
+            mutationStrategy = strategy;
             return this;
         }
 
-        public AttributesBuilder crossingStrategy(int strategy) {
-            switch (strategy) {
-                case 0 -> crossingStrategy = StrategyEnums.CrossingOptions.HOMOGENEOUS_CROSSING;
-                case 1 -> crossingStrategy = StrategyEnums.CrossingOptions.ONE_POINT_CROSSING;
-                case 2 -> crossingStrategy = StrategyEnums.CrossingOptions.THREE_POINTS_CROSSING;
-                case 3 -> crossingStrategy = StrategyEnums.CrossingOptions.TWO_POINTS_CROSSING;
-            }
+        public AttributesBuilder crossingStrategy(StrategyEnums.CrossingOptions strategy) {
+            crossingStrategy = strategy;
             return this;
         }
 
-        public AttributesBuilder selectionStrategy(int strategy) {
-            switch (strategy) {
-                case 0 -> selectionStrategy = StrategyEnums.SelectionOptions.BEST_SELECTION;
-                case 1 -> selectionStrategy = StrategyEnums.SelectionOptions.ROULETTE_SELECTION;
-                case 2 -> selectionStrategy = StrategyEnums.SelectionOptions.TOURNAMENT_SELECTION;
-            }
+        public AttributesBuilder selectionStrategy(StrategyEnums.SelectionOptions strategy) {
+            selectionStrategy = strategy;
             return this;
         }
 

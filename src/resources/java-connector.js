@@ -13,7 +13,7 @@ const formFieldsIds = [
   'crossMethod',
   'mutationMethod',
   'optimizationType'
-]
+];
 
 function sendToJava() {
   console.log('sendToJava');
@@ -23,7 +23,8 @@ function sendToJava() {
 }
 
 function runLearning() {
-  console.log('runLearning')
+  sendToJava();
+  console.log('runLearning');
   javaConnector.run();
 }
 
