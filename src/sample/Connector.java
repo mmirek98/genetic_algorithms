@@ -27,4 +27,8 @@ public class Connector {
     public Map<String, String> getParameters() {
         return this.parameters;
     }
+
+    public void setLearningStatus(String status) {
+        this.jsConnector.call("sendResult", status);
+    }
 }

@@ -16,6 +16,8 @@ import java.net.URL;
 import java.util.Map;
 
 import org.w3c.dom.events.EventListener;
+import sample.genetic.core.ReadingAttributes;
+import sample.genetic.core.SetParams;
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -70,21 +72,42 @@ public class Main extends Application {
     }
 
     private void attachEventListenerToStartButton() {
-        EventListener runButtonListener = new EventListener() {
-            @Override
-            public void handleEvent(org.w3c.dom.events.Event evt) {
-                System.out.println("Run button clicked...");
-                Map<String, String> params = connector.getParameters();
-                for (Map.Entry<String, String> entry: params.entrySet()) {
-                    System.out.println(entry.getKey() + ": " + entry.getValue());
-                }
-                System.out.println("running learning...");
-            }
-        };
-
-        Document document = this.webEngine.getDocument();
-        Element runButton = document.getElementById("run");
+        EventListener runButtonListener = getRunButtonListener();
+        Element runButton = this.webEngine.getDocument().getElementById("run");
         ((EventTarget) runButton).addEventListener("click", runButtonListener, false);
+    }
+
+    private EventListener getRunButtonListener() {
+        return evt -> {
+            System.out.println("Run button clicked...");
+            Map<String, String> params = connector.getParameters();
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                System.out.println(entry.getKey() + ": " + entry.getValue());
+            }
+            System.out.println("running learning...");
+            double winner = this.runAlgorithm();
+            Element learningStatus = this.webEngine.getDocument().getElementById("learningStatus");
+            this.connector.setLearningStatus("The winner is: " + winner);
+        };
+    }
+
+    private double runAlgorithm() {
+        ReadingAttributes read = new ReadingAttributes.AttributesBuilder()
+                .populationSize(10)
+                .numberOfEpochs(4000)
+                .chromosomeAccuracy(6)
+                .selectionStrategy(1)
+                .crossingStrategy(1)
+                .mutationStrategy(2)
+                .gradeStrategy(0)
+                .crossingChance(1)
+                .mutationChance(1)
+                .inversionChance(1)
+                .eliteElements(4)
+                .build();
+        SetParams param = new SetParams();
+        double winnerValue = param.setParams(read);
+        return winnerValue;
     }
 }
 
