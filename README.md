@@ -2,13 +2,14 @@
 
 ## Configuration
 
-##### 1. Add following JavaFX jars to the project (download sdk from: https://gluonhq.com/products/javafx/):
+##### 1. Add following jars to the project (download JavaFX sdk from: https://gluonhq.com/products/javafx/):
 ```
 - javafx.base.jar
 - javafx.controls.jar
 - javafx.fxml.jar
 - javafx.graphics.jar
 - javafx.web.jar
+- decimal4j-1.0.3.jar
 ```
 
 ##### 2. Set following VM options in Run/Debug configuration:
