@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Connector {
-    private HashMap<String, String> parameters = new HashMap<String, String>();
+    private HashMap<String, String> parameters = new HashMap<>();
     private JSObject jsConnector;
 
     public Connector(JSObject jsConnector) {

@@ -8,8 +8,14 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.events.EventTarget;
 
 import java.net.URL;
+import java.util.Map;
+
+import org.w3c.dom.events.EventListener;
 
 public class Main extends Application {
     private Stage primaryStage;
@@ -46,6 +52,8 @@ public class Main extends Application {
         this.primaryStage.setHeight(768);
         this.menuScene = new Scene(this.root, 1366, 768);
         this.primaryStage.setScene(this.menuScene);
+
+
     }
 
     private void setupUIConnection() {
@@ -55,8 +63,28 @@ public class Main extends Application {
                 JSObject jsConnector = (JSObject) this.webEngine.executeScript("getJsConnector()");
                 this.connector = new Connector(jsConnector);
                 window.setMember("javaConnector", this.connector);
+
+                this.attachEventListenerToStartButton();
             }
         }));
+    }
+
+    private void attachEventListenerToStartButton() {
+        EventListener runButtonListener = new EventListener() {
+            @Override
+            public void handleEvent(org.w3c.dom.events.Event evt) {
+                System.out.println("Run button clicked...");
+                Map<String, String> params = connector.getParameters();
+                for (Map.Entry<String, String> entry: params.entrySet()) {
+                    System.out.println(entry.getKey() + ": " + entry.getValue());
+                }
+                System.out.println("running learning...");
+            }
+        };
+
+        Document document = this.webEngine.getDocument();
+        Element runButton = document.getElementById("run");
+        ((EventTarget) runButton).addEventListener("click", runButtonListener, false);
     }
 }
 
