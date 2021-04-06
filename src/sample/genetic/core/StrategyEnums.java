@@ -1,3 +1,5 @@
+package sample.genetic.core;
+
 public class StrategyEnums {
     public enum MutationOptions {
         EDGE_MUTATION,

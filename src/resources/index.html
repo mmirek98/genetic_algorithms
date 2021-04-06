@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
   <script src="java-connector.js"></script>
   <script src="javascript-connector.js"></script>
+  <script src="utils.js"></script>
 </head>
 <body>
   <div class="menu-container">
@@ -26,57 +27,60 @@
 
         <div class="input-container">
           <label>Begin of the range:</label>
-          <input onchange="sendToJava()" id="rangeBegin" placeholder="a" value="1"/>
+          <input id="rangeBegin" placeholder="a" value="1"/>
         </div>
 
         <div class="input-container">
           <label>End of the range:</label>
-          <input onchange="sendToJava()" id="rangeEnd" placeholder="b" value="10"/>
+          <input id="rangeEnd" placeholder="b" value="10"/>
         </div>
 
         <div class="input-container">
           <label>Population amount:</label>
-          <input onchange="sendToJava()" id="populationCount" placeholder="eg. 1000" value="100"/>
+          <input id="populationCount" placeholder="eg. 1000" value="100"/>
         </div>
 
         <div class="input-container">
-          <label>Number of bits:</label>
-          <input onchange="sendToJava()" id="bitsCount" placeholder="todo: check min and max for this variable" value="40"/>
+          <label>Chromosome precision:</label>
+          <input id="chromosomeAccuracy" placeholder="todo: check min and max for this variable" value="6"/>
         </div>
 
         <div class="input-container">
           <label>Epochs amount:</label>
-          <input onchange="sendToJava()" id="epochsCount" placeholder="todo: check min and max for this variable" value="1000"/>
+          <input id="epochsCount" placeholder="todo: check min and max for this variable" value="1000"/>
         </div>
-        
-        <div class="input-container">
-          <label>Best and tournament chromosome amount:</label>
-          <input onchange="sendToJava()" id="chromosomeAmount" placeholder="todo: check min and max for this variable" value="20"/>
+
+<!--        TODO: this param depend on selection method:
+                      - Tournament -> range 1...population_count
+                      - Best 0...1 (percentage) -->
+        <div id="selectionParameterContainer" class="input-container">
+          <label id="selectionParameterLabel">Best chromosome preservation amount (in %):</label>
+          <input id="selectionParameter" placeholder="todo: check min and max for this variable" value="1"/>
         </div>
 
         <div class="input-container">
           <label>Elite Strategy amount:</label>
-          <input onchange="sendToJava()" id="eliteStrategyAmount" placeholder="todo: check min and max for this variable" value="10"/>
+          <input id="eliteStrategyAmount" placeholder="todo: check min and max for this variable" value="10"/>
         </div>
 
         <div class="input-container">
           <label>Cross probability:</label>
-          <input onchange="sendToJava()" id="crossProbability" placeholder="todo: check min and max for this variable" value="0.6"/>
+          <input id="crossProbability" placeholder="todo: check min and max for this variable" value="0.6"/>
         </div>
         
         <div class="input-container">
           <label>Mutation probability:</label>
-          <input onchange="sendToJava()" id="mutationProbability" placeholder="todo: check min and max for this variable" value="0.4"/>
+          <input id="mutationProbability" placeholder="todo: check min and max for this variable" value="0.4"/>
         </div>
 
         <div class="input-container">
           <label>Inversion probability:</label>
-          <input onchange="sendToJava()" id="inversionProbability" placeholder="todo: check min and max for this variable" value="0.1"/>
+          <input id="inversionProbability" placeholder="todo: check min and max for this variable" value="0.1"/>
         </div>
 
         <div class="input-container">
           <label>Selection method:</label>
-          <select onchange="sendToJava()" id="selectionMethod">
+          <select onchange="handleSelectionMethodChange()" id="selectionMethod">
             <option value="best">Best</option>
             <option value="roulette">Roulette</option>
             <option value="tournament">Tournament</option>
@@ -85,7 +89,7 @@
 
         <div class="input-container">
           <label>Cross method:</label>
-          <select onchange="sendToJava()" id="crossMethod">
+          <select id="crossMethod">
             <option value="onePoints">One point</option>
             <option value="twoPoints">Two points</option>
             <option value="threePoints">Three points</option>
@@ -95,25 +99,20 @@
 
         <div class="input-container">
           <label>Mutation method:</label>
-          <select onchange="sendToJava()" id="mutationMethod">
+          <select id="mutationMethod">
             <option value="onePoint">One point</option>
             <option value="twoPoints">Two points</option>
+            <option value="edge">Edge</option>
           </select>
         </div>
 
-        <!-- Instead of maximization checkbox -> select with two options -->
         <div class="input-container">
           <label>Optimization type:</label>
-          <select onchange="sendToJava()" id="optimizationType">
+          <select id="optimizationType">
             <option value="minimization">Minimization</option>
             <option value="maximization">Maximization</option>
           </select>
         </div>
-
-        <!-- <div class="input-container">
-          <label for="maximization">Maximization</label>
-          <input onchange="sendToJava()" id="maximization" type="checkbox" name="maximization"/>
-        </div> -->
       </form>
 
       <div class="button-container">

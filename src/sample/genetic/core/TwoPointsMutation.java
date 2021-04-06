@@ -1,3 +1,4 @@
+package sample.genetic.core;
 
 public class TwoPointsMutation implements MutationStrategy{
     private final double chance;

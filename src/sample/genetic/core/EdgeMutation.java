@@ -1,5 +1,6 @@
+package sample.genetic.core;
 
-public class EdgeMutation implements MutationStrategy{
+public class EdgeMutation implements MutationStrategy {
     private final double chance;
 
     EdgeMutation(double chance) {

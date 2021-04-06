@@ -5,6 +5,8 @@ public class Parameters {
     private int populationSize;
     private int epochsNumber;
     private int chromosomeAccuracy;
+    private double leftRange;
+    private double rightRange;
     private StrategyEnums.SelectionOptions selectionStrategy;
     private StrategyEnums.CrossingOptions crossingStrategy;
     private StrategyEnums.MutationOptions mutationStrategy;
@@ -13,6 +15,15 @@ public class Parameters {
     private double mutationChance;
     private double inversionChance;
     private int eliteStrategyAmount;
+    private double selectionParameter;
+
+    public double getLeftRange() {
+        return leftRange;
+    }
+
+    public double getRightRange() {
+        return rightRange;
+    }
 
     public int getPopulationSize() {
         return populationSize;
@@ -22,8 +33,20 @@ public class Parameters {
         return epochsNumber;
     }
 
+    public void setLeftRange(double leftRange) {
+        this.leftRange = leftRange;
+    }
+
+    public void setRightRange(double rightRange) {
+        this.rightRange = rightRange;
+    }
+
     public int getChromosomeAccuracy() {
         return chromosomeAccuracy;
+    }
+
+    public double getSelectionParameter() {
+        return selectionParameter;
     }
 
     public StrategyEnums.SelectionOptions getSelectionStrategy() {
@@ -100,5 +123,9 @@ public class Parameters {
 
     public void setEliteStrategyAmount(int eliteStrategyAmount) {
         this.eliteStrategyAmount = eliteStrategyAmount;
+    }
+
+    public void setSelectionParameter(double selectionParameter) {
+        this.selectionParameter = selectionParameter;
     }
 }

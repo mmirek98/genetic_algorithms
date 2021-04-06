@@ -1,3 +1,4 @@
+package sample.genetic.core;
 
 public class Inversion {
     private final double chance;

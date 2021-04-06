@@ -1,3 +1,5 @@
+package sample.genetic.core;
+
 import org.decimal4j.util.DoubleRounder;
 import java.util.ArrayList;
 import java.util.List;

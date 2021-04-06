@@ -1,3 +1,5 @@
+package sample.genetic.core;
+
 public class SetParams {
     private SelectionStrategy selection;
     private MutationStrategy mutation;
@@ -6,7 +8,7 @@ public class SetParams {
     private Inversion inversion;
     private Elite elite;
 
-    public void setParams(ReadingAttributes attributes) {
+    public double  setParams(ReadingAttributes attributes) {
         Algorithm algorithm = new Algorithm();
         Population population = new Population(attributes.getPopulationSize(), attributes.getChromosomeAccuracy(),
                 attributes.getPopulationLeftBoundary(), attributes.getPopulationRightBoundary());
@@ -19,6 +21,7 @@ public class SetParams {
         elite = new Elite(attributes.getEliteElements());
         algorithm.makeAlgorithm(population, crossing, grade, mutation, selection, inversion, elite);
         System.out.println("zwyciezca to: " + algorithm.getWinner());
+        return algorithm.getWinner();
     }
 
     private void setCrossingStrategy(StrategyEnums.CrossingOptions strategy, double chance) {

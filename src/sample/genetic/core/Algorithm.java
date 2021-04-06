@@ -1,3 +1,5 @@
+package sample.genetic.core;
+
 public class Algorithm {
 
     public void setNumberOfEpochs(int numberOfEpochs) {
@@ -10,7 +12,9 @@ public class Algorithm {
         for(int i = 0; i < numberOfEpochs; i++) {
             population = elite.make(population);
             population = selection.make(population);
-            crossing.make(population);
+            // FIXME: homo strategy not working with this change
+            //  worked with: crossing.make(population);
+            population = crossing.make(population);
             mutation.make(population);
             inversion.make(population);
             grade.makeGrades(population);

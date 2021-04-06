@@ -22,7 +22,7 @@ import java.util.Map;
 public class ParametersMapper {
     private static final String populationSizeId = "populationCount";
     private static final String epochsCountId = "epochsCount";
-    private static final String chromosomeAmountId = "chromosomeAmount";
+    private static final String selectionParameterId = "selectionParameter";
     private static final String selectionStrategyId = "selectionMethod";
     private static final String crossingStrategyId = "crossMethod";
     private static final String mutationStrategyId = "mutationMethod";
@@ -31,8 +31,10 @@ public class ParametersMapper {
     private static final String inversionChanceId = "inversionProbability";
     private static final String crossingChanceId = "crossProbability";
     //    TODO: add following params to front & other required
+    private static final String rangeBeginId = "rangeBegin";
+    private static final String rangeEndId = "rangeEnd";
     private static final String chromosomeAccuracyId = "chromosomeAccuracy";
-    private static final String gradeStrategyId = "gradeMethod";
+    private static final String gradeStrategyId = "optimizationType";
 
 
     public static Parameters toParameters(Map<String, String> params) {
@@ -41,7 +43,6 @@ public class ParametersMapper {
         // TODO: this may be builder
         setPopulationSize(Integer.parseInt(params.get(populationSizeId)), parsedParameters);
         setEpochsCount(Integer.parseInt(params.get(epochsCountId)), parsedParameters);
-        setChromosomeAmount(Integer.parseInt(params.get(chromosomeAmountId)), parsedParameters);
         setSelectionStrategy(params.get(selectionStrategyId), parsedParameters);
         setCrossingStrategy(params.get(crossingStrategyId), parsedParameters);
         setMutationStrategy(params.get(mutationStrategyId), parsedParameters);
@@ -49,8 +50,11 @@ public class ParametersMapper {
         setEliteStrategyElements(Integer.parseInt(params.get(eliteStrategyElementsId)), parsedParameters);
         setInversionChance(Double.parseDouble(params.get(inversionChanceId)), parsedParameters);
         setCrossingChance(Double.parseDouble(params.get(crossingChanceId)), parsedParameters);
-        setChromosomeAccuracy(6, parsedParameters);
-        setGradeStrategy("maximal", parsedParameters);
+        setChromosomeAccuracy(Integer.parseInt(params.get(chromosomeAccuracyId)), parsedParameters);
+        setGradeStrategy(params.get(gradeStrategyId), parsedParameters);
+        setRangeBegin(Double.parseDouble(params.get(rangeBeginId)), parsedParameters);
+        setRangeEnd(Double.parseDouble(params.get(rangeEndId)), parsedParameters);
+        setSelectionParameter(Double.parseDouble(params.get(selectionParameterId)), parsedParameters);
 
         return parsedParameters;
     }
@@ -59,12 +63,13 @@ public class ParametersMapper {
         parsedParameters.setPopulationSize(value);
     }
 
-    private static void setEpochsCount(int value, Parameters parsedParameters) {
-        parsedParameters.setEpochsNumber(value);
+
+    private static void setSelectionParameter(double value, Parameters parsedParameters) {
+        parsedParameters.setSelectionParameter(value);
     }
 
-    private static void setChromosomeAmount(int value, Parameters parsedParameters) {
-        parsedParameters.setPopulationSize(value);
+    private static void setEpochsCount(int value, Parameters parsedParameters) {
+        parsedParameters.setEpochsNumber(value);
     }
 
     private static void setSelectionStrategy(String strategy, Parameters parsedParameters) {
@@ -92,7 +97,6 @@ public class ParametersMapper {
     private static void setMutationStrategy(String strategy, Parameters parsedParameters) {
         StrategyEnums.MutationOptions chosenStrategy = switch (strategy) {
             case "twoPoints" -> StrategyEnums.MutationOptions.TWO_POINTS_MUTATION;
-            // TODO: no such option in GUI
             case "edge" -> StrategyEnums.MutationOptions.EDGE_MUTATION;
             default -> StrategyEnums.MutationOptions.ONE_POINT_MUTATION;
         };
@@ -116,18 +120,24 @@ public class ParametersMapper {
         parsedParameters.setCrossingChance(value);
     }
 
-    // TODO: not implemented in GUI
     private static void setChromosomeAccuracy(int value, Parameters parsedParameters) {
         parsedParameters.setChromosomeAccuracy(value);
     }
 
-    // TODO: not implemented in GUI
     private static void setGradeStrategy(String strategy, Parameters parsedParameters) {
         StrategyEnums.GradeOptions chosenStrategy = switch (strategy) {
-            case "minimal" -> StrategyEnums.GradeOptions.MINIMAL_GRADE;
+            case "minimization" -> StrategyEnums.GradeOptions.MINIMAL_GRADE;
             default -> StrategyEnums.GradeOptions.MAXIMAL_GRADE;
         };
 
         parsedParameters.setGradeStrategy(chosenStrategy);
+    }
+
+    private static void setRangeBegin(double value, Parameters parsedParameters) {
+        parsedParameters.setLeftRange(value);
+    }
+
+    private static void setRangeEnd(double value, Parameters parsedParameters) {
+        parsedParameters.setRightRange(value);
     }
 }

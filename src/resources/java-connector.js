@@ -2,9 +2,9 @@ const formFieldsIds = [
   'rangeBegin',
   'rangeEnd',
   'populationCount',
-  'bitsCount',
+  'chromosomeAccuracy',
   'epochsCount',
-  'chromosomeAmount',
+  'selectionParameter',
   'eliteStrategyAmount',
   'crossProbability',
   'mutationProbability',
@@ -18,7 +18,11 @@ const formFieldsIds = [
 function sendToJava() {
   console.log('sendToJava');
   formFieldsIds.forEach(id => {
-    javaConnector.sendParameter(id, getValueFromField(id));
+    if (id !== 'selectionParameter') {
+      javaConnector.sendParameter(id, getValueFromField(id));
+    } else {
+      javaConnector.sendParameter(id, calculateSelectionParameter())
+    }
   });
 }
 
@@ -28,4 +32,15 @@ function runLearning() {
   javaConnector.run();
 }
 
-const getValueFromField = id => document.getElementById(id).value;
+function calculateSelectionParameter() {
+  const selectionMethod = getValueFromField('selectionMethod');
+  let value = getValueFromField('selectionParameter');
+  if (selectionMethod === 'best') {
+    const percentageToKeep = 100 - value;
+    return percentageToKeep / 100;
+  }
+
+  return value;
+}
+
+const getValueFromField = id => document.getElementById(id)?.value;

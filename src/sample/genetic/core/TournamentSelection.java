@@ -1,3 +1,5 @@
+package sample.genetic.core;
+
 import java.util.Collections;
 
 public class TournamentSelection implements SelectionStrategy{

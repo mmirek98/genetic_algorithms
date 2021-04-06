@@ -1,3 +1,4 @@
+package sample.genetic.core;
 
 public class RouletteSelection implements SelectionStrategy{
     public Population make(Population population) {

@@ -87,6 +87,8 @@ public class MainWindow extends Application {
     private double runAlgorithm(sample.view.Parameters params) {
         ReadingAttributes read = new ReadingAttributes.AttributesBuilder()
                 .populationSize(params.getPopulationSize())
+                .populationLeftBoundary(params.getLeftRange())
+                .populationRightBoundary(params.getRightRange())
                 .numberOfEpochs(params.getEpochsNumber())
                 .chromosomeAccuracy(params.getChromosomeAccuracy())
                 .selectionStrategy(params.getSelectionStrategy())
@@ -97,6 +99,7 @@ public class MainWindow extends Application {
                 .mutationChance(params.getMutationChance())
                 .inversionChance(params.getInversionChance())
                 .eliteElements(params.getEliteStrategyAmount())
+                .selectionParameter(params.getSelectionParameter())
                 .build();
         SetParams param = new SetParams();
         double winnerValue = param.setParams(read);

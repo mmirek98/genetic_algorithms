@@ -1,3 +1,5 @@
+package sample.genetic.core;
+
 import java.util.ArrayList;
 import java.util.Collections;
 

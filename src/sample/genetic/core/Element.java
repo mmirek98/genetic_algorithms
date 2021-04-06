@@ -1,3 +1,4 @@
+package sample.genetic.core;
 
 public class Element implements Comparable<Element> {
     String chromosome;
