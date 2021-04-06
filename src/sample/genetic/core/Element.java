@@ -1,20 +1,33 @@
-package sample.genetic.core;
 
 public class Element implements Comparable<Element> {
     String chromosome;
+    String secondChromosome;
     double grade;
 
-    public Element(String chromosome, double grade) {
+    public Element(String chromosome, String secondChromosome, double grade) {
         this.chromosome = chromosome;
+        this.secondChromosome = secondChromosome;
         this.grade = grade;
     }
 
-    public String getChromosome() {
-        return chromosome;
+    public String getChromosome(int i) {
+        if(i == 0) {
+            return chromosome;
+        } else if(i == 1) {
+            return secondChromosome;
+        } else {
+            return "err";
+        }
     }
 
-    public void setChromosome(String chromosome) {
-        this.chromosome = chromosome;
+    public void setChromosome(String chromosome, int i) {
+        if(i == 0) {
+            this.chromosome = chromosome;
+        } else if (i == 1) {
+            this.secondChromosome = secondChromosome;
+        } else {
+            System.out.println("err");
+        }
     }
 
     public double getGrade() {

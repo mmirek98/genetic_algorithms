@@ -1,26 +1,41 @@
-package sample.genetic.core;
-
 import org.decimal4j.util.DoubleRounder;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Population {
 
-    public Population(int populationSize, int chromosomeAccuracy) {
+    public Population(int populationSize, int chromosomeAccuracy, double leftBoundary, double rightBoundary) {
+        this.leftBoundary = leftBoundary;
+        this.rightBoundary = rightBoundary;
         population = new ArrayList<>();
-        StringBuilder chromosome = new StringBuilder();
+        String chromosome = "";
         double range = (rightBoundary-leftBoundary) * Math.pow(10, chromosomeAccuracy);
         chromosomeSize = (int) (log2(range)) + 1;
 
         for(int i = 0; i < populationSize; i++){
-            for(int j = 0; j < chromosomeSize; j++) {
-                double gene = DoubleRounder.round(Math.random(), 0);
-                chromosome.append(String.valueOf((int) gene));
+            List<String> chromosomes = new ArrayList<>();
+            for(int k = 0; k < 2; k++) {
+                for(int j = 0; j < chromosomeSize; j++) {
+                    double gene = DoubleRounder.round(Math.random(), 0);
+                    chromosome += String.valueOf((int) gene);
+                }
+                chromosomes.add(chromosome);
+                chromosome = "";
             }
-            population.add(new Element(chromosome.toString(),0));
-            chromosome = new StringBuilder();
+            population.add(new Element(chromosomes.get(0),chromosomes.get(1), 0));
         }
         this.populationSize = populationSize;
         this.chromosomeAccuracy = chromosomeAccuracy;
+    }
+
+    public Population(Population populationOld) {
+        this.population = new ArrayList<>();
+        this.populationSize = 0;
+        this.chromosomeAccuracy = populationOld.getChromosomeAccuracy();
+        this.leftBoundary = populationOld.getLeftBoundary();
+        this.rightBoundary = populationOld.getRightBoundary();
+        double range = (rightBoundary-leftBoundary) * Math.pow(10, chromosomeAccuracy);
+        chromosomeSize = (int) (log2(range)) + 1;
     }
 
     public ArrayList<Element> getPopulation() {
@@ -29,6 +44,15 @@ public class Population {
 
     public void setPopulation(ArrayList<Element> population) {
         this.population = population;
+    }
+
+    public Element getLastElement() {
+        return population.get(population.size() - 1);
+    }
+
+    public void clearPopulation() {
+        population.clear();
+        populationSize = 0;
     }
 
     public void addElement(Element element) {
@@ -46,9 +70,15 @@ public class Population {
         return (Math.log(N) / Math.log(2));
     }
 
-    public double getRealNumber(int i) {
-        int range = rightBoundary - leftBoundary;
-        double summary = leftBoundary + Integer.parseInt(population.get(i).getChromosome(), 2) * range / (Math.pow(2, chromosomeSize) - 1);
+    public double getFirstChromosomeRealNumber(int i) {
+        double range = rightBoundary - leftBoundary;
+        double summary = leftBoundary + Integer.parseInt(population.get(i).getChromosome(0), 2) * range / (Math.pow(2, chromosomeSize) - 1);
+        return DoubleRounder.round(summary, chromosomeAccuracy);
+    }
+
+    public double getSecondChromosomeRealNumber(int i) {
+        double range = rightBoundary - leftBoundary;
+        double summary = leftBoundary + Integer.parseInt(population.get(i).getChromosome(1), 2) * range / (Math.pow(2, chromosomeSize) - 1);
         return DoubleRounder.round(summary, chromosomeAccuracy);
     }
 
@@ -66,10 +96,14 @@ public class Population {
         return chromosomeAccuracy;
     }
 
-    ArrayList<Element> population;
-    int populationSize;
-    int chromosomeSize;
-    int leftBoundary = -10;
-    int rightBoundary = 10;
+    public double getLeftBoundary() { return leftBoundary; }
+
+    public double getRightBoundary() { return rightBoundary; }
+
+    private ArrayList<Element> population;
+    private int populationSize;
+    private final int chromosomeSize;
+    private final double leftBoundary;
+    private final double rightBoundary;
     private final int chromosomeAccuracy;
 }

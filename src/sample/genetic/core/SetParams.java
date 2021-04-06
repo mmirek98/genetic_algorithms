@@ -1,5 +1,3 @@
-package sample.genetic.core;
-
 public class SetParams {
     private SelectionStrategy selection;
     private MutationStrategy mutation;
@@ -8,20 +6,19 @@ public class SetParams {
     private Inversion inversion;
     private Elite elite;
 
-    public double setParams(ReadingAttributes attributes) {
+    public void setParams(ReadingAttributes attributes) {
         Algorithm algorithm = new Algorithm();
-        Population population = new Population(attributes.getPopulationSize(), attributes.getChromosomeAccuracy());
+        Population population = new Population(attributes.getPopulationSize(), attributes.getChromosomeAccuracy(),
+                attributes.getPopulationLeftBoundary(), attributes.getPopulationRightBoundary());
         algorithm.setNumberOfEpochs(attributes.getNumberOfEpochs());
         setCrossingStrategy(attributes.getCrossingStrategy(), attributes.getCrossingChance());
         setGradeStrategy(attributes.getGradeStrategy());
         setMutationStrategy(attributes.getMutationStrategy(), attributes.getMutationChance());
-        setSelectionStrategy(attributes.getSelectionStrategy());
+        setSelectionStrategy(attributes.getSelectionStrategy(), attributes.getSelectionParameter());
         inversion = new Inversion(attributes.getInversionChance());
         elite = new Elite(attributes.getEliteElements());
         algorithm.makeAlgorithm(population, crossing, grade, mutation, selection, inversion, elite);
-        System.out.println("zwyciesca to: " + algorithm.getWinner());
-        // TODO: remove return statement & overhaul this class/method
-        return algorithm.getWinner();
+        System.out.println("zwyciezca to: " + algorithm.getWinner());
     }
 
     private void setCrossingStrategy(StrategyEnums.CrossingOptions strategy, double chance) {
@@ -48,11 +45,11 @@ public class SetParams {
         }
     }
 
-    private void setSelectionStrategy(StrategyEnums.SelectionOptions strategy) {
+    private void setSelectionStrategy(StrategyEnums.SelectionOptions strategy, double parameter) {
         switch (strategy) {
-            case BEST_SELECTION -> selection = new BestSelection();
+            case BEST_SELECTION -> selection = new BestSelection(parameter);
             case ROULETTE_SELECTION -> selection = new RouletteSelection();
-            case TOURNAMENT_SELECTION -> selection = new TournamentSelection();
+            case TOURNAMENT_SELECTION -> selection = new TournamentSelection(parameter);
         }
     }
 

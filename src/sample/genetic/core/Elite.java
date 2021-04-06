@@ -1,5 +1,3 @@
-package sample.genetic.core;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -12,7 +10,7 @@ public class Elite {
     }
 
     public Population setEliteElements(Population population) {
-        Population population1 = new Population(0, population.getChromosomeAccuracy());
+        Population population1 = new Population(population);
 
         Collections.sort(population.getPopulation());
         int maxPopulSize = population.getPopulationSize() - 1;

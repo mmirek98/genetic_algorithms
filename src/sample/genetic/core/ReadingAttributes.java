@@ -1,5 +1,3 @@
-package sample.genetic.core;
-
 public class ReadingAttributes {
 
     private final StrategyEnums.GradeOptions gradeStrategy;
@@ -13,6 +11,9 @@ public class ReadingAttributes {
     private final double inversionChance;
     private final int eliteElements;
     private final int chromosomeAccuracy;
+    private final double populationLeftBoundary;
+    private final double populationRightBoundary;
+    private final double selectionParameter;
 
     private ReadingAttributes(final AttributesBuilder builder) {
         this.gradeStrategy = builder.gradeStrategy;
@@ -26,6 +27,9 @@ public class ReadingAttributes {
         this.inversionChance = builder.inversionChance;
         this.eliteElements = builder.eliteElements;
         this.chromosomeAccuracy = builder.chromosomeAccuracy;
+        this.populationLeftBoundary = builder.populationLeftBoundary;
+        this.populationRightBoundary = builder.populationRightBoundary;
+        this.selectionParameter = builder.selectionParameter;
     }
 
     public int getPopulationSize() {
@@ -48,6 +52,14 @@ public class ReadingAttributes {
         return inversionChance;
     }
 
+    public double getPopulationLeftBoundary() {
+        return populationLeftBoundary;
+    }
+
+    public double getPopulationRightBoundary() {
+        return populationRightBoundary;
+    }
+
     public int getEliteElements() {
         return eliteElements;
     }
@@ -55,6 +67,8 @@ public class ReadingAttributes {
     public int getChromosomeAccuracy() {
         return chromosomeAccuracy;
     }
+
+    public double getSelectionParameter() { return selectionParameter; }
 
     public StrategyEnums.GradeOptions getGradeStrategy() {
         return gradeStrategy;
@@ -82,26 +96,45 @@ public class ReadingAttributes {
         private double mutationChance;
         private double crossingChance;
         private double inversionChance;
+        private double populationLeftBoundary;
+        private double populationRightBoundary;
         private int eliteElements;
         private int chromosomeAccuracy;
+        private double selectionParameter;
 
-        public AttributesBuilder gradeStrategy(final StrategyEnums.GradeOptions strategy) {
-            gradeStrategy = strategy;
+        public AttributesBuilder gradeStrategy(final int strategy) {
+            switch (strategy) {
+                case 0 -> gradeStrategy = StrategyEnums.GradeOptions.MAXIMAL_GRADE;
+                case 1 -> gradeStrategy = StrategyEnums.GradeOptions.MINIMAL_GRADE;
+            }
             return this;
         }
 
-        public AttributesBuilder mutationStrategy(final StrategyEnums.MutationOptions strategy) {
-            mutationStrategy = strategy;
+        public AttributesBuilder mutationStrategy(final int strategy) {
+            switch (strategy) {
+                case 0 -> mutationStrategy = StrategyEnums.MutationOptions.EDGE_MUTATION;
+                case 1 -> mutationStrategy = StrategyEnums.MutationOptions.ONE_POINT_MUTATION;
+                case 2 -> mutationStrategy = StrategyEnums.MutationOptions.TWO_POINTS_MUTATION;
+            }
             return this;
         }
 
-        public AttributesBuilder crossingStrategy(StrategyEnums.CrossingOptions strategy) {
-            crossingStrategy = strategy;
+        public AttributesBuilder crossingStrategy(int strategy) {
+            switch (strategy) {
+                case 0 -> crossingStrategy = StrategyEnums.CrossingOptions.HOMOGENEOUS_CROSSING;
+                case 1 -> crossingStrategy = StrategyEnums.CrossingOptions.ONE_POINT_CROSSING;
+                case 2 -> crossingStrategy = StrategyEnums.CrossingOptions.THREE_POINTS_CROSSING;
+                case 3 -> crossingStrategy = StrategyEnums.CrossingOptions.TWO_POINTS_CROSSING;
+            }
             return this;
         }
 
-        public AttributesBuilder selectionStrategy(StrategyEnums.SelectionOptions strategy) {
-            selectionStrategy = strategy;
+        public AttributesBuilder selectionStrategy(int strategy) {
+            switch (strategy) {
+                case 0 -> selectionStrategy = StrategyEnums.SelectionOptions.BEST_SELECTION;
+                case 1 -> selectionStrategy = StrategyEnums.SelectionOptions.ROULETTE_SELECTION;
+                case 2 -> selectionStrategy = StrategyEnums.SelectionOptions.TOURNAMENT_SELECTION;
+            }
             return this;
         }
 
@@ -130,6 +163,16 @@ public class ReadingAttributes {
             return this;
         }
 
+        public AttributesBuilder populationLeftBoundary(double populationLeftBoundary) {
+            this.populationLeftBoundary = populationLeftBoundary;
+            return this;
+        }
+
+        public AttributesBuilder populationRightBoundary(double populationRightBoundary) {
+            this.populationRightBoundary = populationRightBoundary;
+            return this;
+        }
+
         public AttributesBuilder eliteElements(int eliteElements) {
             this.eliteElements = eliteElements;
             return this;
@@ -137,6 +180,11 @@ public class ReadingAttributes {
 
         public AttributesBuilder chromosomeAccuracy(int chromosomeAccuracy) {
             this.chromosomeAccuracy = chromosomeAccuracy;
+            return this;
+        }
+
+        public AttributesBuilder selectionParameter(double selectionParameter) {
+            this.selectionParameter = selectionParameter;
             return this;
         }
 

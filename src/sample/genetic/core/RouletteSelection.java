@@ -1,8 +1,7 @@
-package sample.genetic.core;
 
-public class RouletteSelection implements SelectionStrategy {
+public class RouletteSelection implements SelectionStrategy{
     public Population make(Population population) {
-        Population population1 = new Population(0, population.getChromosomeAccuracy());
+        Population population1 = new Population(population);
         double sum = 0;
         double max = 0;
         for(int i = 0; i < population.getPopulationSize(); i++) {
