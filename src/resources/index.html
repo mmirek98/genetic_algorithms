@@ -11,6 +11,7 @@
   <script src="java-connector.js"></script>
   <script src="javascript-connector.js"></script>
   <script src="utils.js"></script>
+  <script src="validators.js"></script>
 </head>
 <body>
   <div class="menu-container">
@@ -23,59 +24,51 @@
     </div>
 
     <div class="form-container">
-      <form>
+      <form id="form">
 
         <div class="input-container">
           <label>Begin of the range:</label>
-          <input id="rangeBegin" placeholder="a" value="1"/>
+          <input oninput="validateRange(id)" id="rangeBegin" placeholder="a" value="1" required/>
         </div>
 
         <div class="input-container">
           <label>End of the range:</label>
-          <input id="rangeEnd" placeholder="b" value="10"/>
+          <input oninput="validateRange(id)" id="rangeEnd" placeholder="b" value="10" required/>
         </div>
 
         <div class="input-container">
           <label>Population amount:</label>
-          <input id="populationCount" placeholder="eg. 1000" value="100"/>
+          <input oninput="validateIntBoundary(id, 10, 100000000)" id="populationCount" placeholder="10...100 000 000" value="100" required/>
         </div>
 
         <div class="input-container">
           <label>Chromosome precision:</label>
-          <input id="chromosomeAccuracy" placeholder="todo: check min and max for this variable" value="6"/>
+          <input oninput="validateIntBoundary(id, 0, 100)" id="chromosomeAccuracy" placeholder="0..100" value="6" required/>
         </div>
 
         <div class="input-container">
           <label>Epochs amount:</label>
-          <input id="epochsCount" placeholder="todo: check min and max for this variable" value="1000"/>
-        </div>
-
-<!--        TODO: this param depend on selection method:
-                      - Tournament -> range 1...population_count
-                      - Best 0...1 (percentage) -->
-        <div id="selectionParameterContainer" class="input-container">
-          <label id="selectionParameterLabel">Best chromosome preservation amount (in %):</label>
-          <input id="selectionParameter" placeholder="todo: check min and max for this variable" value="1"/>
+          <input oninput="validateIntBoundary(id, 0, 1000000000)" id="epochsCount" placeholder="1...1 000 000 000" value="1000" required/>
         </div>
 
         <div class="input-container">
           <label>Elite Strategy amount:</label>
-          <input id="eliteStrategyAmount" placeholder="todo: check min and max for this variable" value="10"/>
+          <input oninput="validateEliteAmount(id)" id="eliteStrategyAmount" placeholder="0...{Population amount}" value="10" required/>
         </div>
 
         <div class="input-container">
           <label>Cross probability:</label>
-          <input id="crossProbability" placeholder="todo: check min and max for this variable" value="0.6"/>
+          <input oninput="validateFloatBoundary(id, 0, 1)" id="crossProbability" placeholder="0...1" value="0.6" required/>
         </div>
         
         <div class="input-container">
           <label>Mutation probability:</label>
-          <input id="mutationProbability" placeholder="todo: check min and max for this variable" value="0.4"/>
+          <input oninput="validateFloatBoundary(id, 0, 1)" id="mutationProbability" placeholder="0...1" value="0.4" required/>
         </div>
 
         <div class="input-container">
           <label>Inversion probability:</label>
-          <input id="inversionProbability" placeholder="todo: check min and max for this variable" value="0.1"/>
+          <input oninput="validateFloatBoundary(id, 0, 1)" id="inversionProbability" placeholder="0...1" value="0.1" required/>
         </div>
 
         <div class="input-container">
@@ -85,6 +78,14 @@
             <option value="roulette">Roulette</option>
             <option value="tournament">Tournament</option>
           </select>
+        </div>
+
+        <!--       this param depend on selection method:
+                      - Tournament -> range 1...population_count
+                      - Best 0...1 (percentage) -->
+        <div id="selectionParameterContainer" class="input-container">
+          <label id="selectionParameterLabel">Best chromosome preservation amount (in %):</label>
+          <input oninput="validateFloatBoundary(id, 0, 100)" id="selectionParameter" value="1" required/>
         </div>
 
         <div class="input-container">

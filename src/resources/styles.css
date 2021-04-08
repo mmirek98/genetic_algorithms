@@ -15,9 +15,9 @@ body {
 
 .form-container {
   padding-left: 1rem;
-  margin: auto;
-  width: 75%;
-
+  margin: 0 auto;
+  text-align: center;
+  width: 90%;
 }
 
 .input-container {
@@ -30,21 +30,18 @@ body {
 }
 
 .input-container:hover {
-  border: 1px dashed beige;
   color: yellow;
 }
 
 .input-container label {
+  margin-left: 10%;
   padding-right: 2rem;
 }
 
 .input-container input, .input-container select {
   width: 30%;
   font-family: 'Fira Code', monospace;
-}
-
-input[type="checkbox"]:focus {
-  outline:0;
+  margin-right: 10%;
 }
 
 .button-container {
@@ -57,19 +54,25 @@ input[type="checkbox"]:focus {
 }
 
 .button-container button {
-  width: 12rem;
+  min-width: 8em;
   height: 2.5rem;
   font-size: 1.2rem;
   font-family: 'Fira Code', monospace;
 }
 
 #run {
-  background: rgb(130, 182, 26);
+  background: rgb(112, 146, 34);
+  color: white;
   border: none;
 }
 
+#run[disabled] {
+  background: rgb(112, 112, 112);
+  color: grey;
+}
+
 #reset {
-  background: navajowhite;
+  background: whitesmoke;
   border: none;
 }
 
