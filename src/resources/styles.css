@@ -24,8 +24,8 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin: 0.6rem;
-  padding: 0.4rem;
+  margin: 0.1rem;
+  padding: 0.3rem;
   border: 1px dashed transparent;
 }
 

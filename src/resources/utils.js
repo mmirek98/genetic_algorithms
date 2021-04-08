@@ -1,3 +1,5 @@
+const setFieldValue = (id, value) => document.getElementById(id).value = value;
+
 function handleSelectionMethodChange() {
     const selectionMethod = document.getElementById('selectionMethod').value;
     console.log('selection: ', selectionMethod);
@@ -39,4 +41,19 @@ function unsetParameterSelectionField(field) {
     field.container.style.display = 'none';
     field.label.innerText = '';
     field.value.value = 0;
+}
+
+function setToDefault() {
+    setFieldValue('rangeBegin', 1);
+    setFieldValue('rangeEnd', 10);
+    setFieldValue('populationCount', 100);
+    setFieldValue('chromosomeAccuracy', 6);
+    setFieldValue('epochsCount', 1000);
+    setFieldValue('eliteStrategyAmount', 10);
+    setFieldValue('crossProbability', 0.6);
+    setFieldValue('inversionProbability', 0.1);
+    setFieldValue('epochsCount', 1000);
+    setFieldValue('selectionParameter', 1);
+
+    formFieldsIds.forEach(id => setFieldAsValid(id))
 }
