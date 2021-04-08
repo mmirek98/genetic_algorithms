@@ -4,7 +4,7 @@ body {
   color: antiquewhite;
   height: 100%;
   scroll-behavior: smooth;
-
+  margin: 0;
 }
 
 #header {
@@ -80,3 +80,52 @@ body {
   font-size: 1.5rem;
   text-align: center;
 }
+
+/* spinner starts */
+.spinner-overlay {
+  /* change display to unset/inherit when running learning */
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.spinner {
+  position: relative;
+  margin: 20vh auto;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid rgb(112, 146, 34);
+  width: 160px;
+  height: 160px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#stopButtonContainer {
+  width: 160px;
+  position: relative;
+  margin: 20vh auto;
+}
+
+#stopLearning {
+  background: red;
+  color: whitesmoke;
+  width: 100%;
+  border: none;
+  font-size: 1.2rem;
+}
+
+/* spinner ends */
