@@ -25,6 +25,10 @@ public class WebViewConnector {
         this.jsConnector.call("sendResult", status);
     }
 
+    public void setExecutionTime(String executionTime) {
+        this.jsConnector.call("sendExecutionTime", executionTime);
+    }
+
     public void setSpinnerOverlay() {
         this.jsConnector.call("setSpinnerOverlay");
     }

@@ -33,6 +33,7 @@ public class MainWindow extends Application {
     private VBox root;
     private Scene menuScene;
     private WebViewConnector webViewConnector;
+    private long executionTime;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -115,6 +116,7 @@ public class MainWindow extends Application {
     private void displayResult(double winner) {
         this.webViewConnector.unsetSpinnerOverlay();
         this.webViewConnector.setLearningStatus("The winner is: " + winner);
+        this.webViewConnector.setExecutionTime("Execution time: " + this.executionTime + " ms");
     }
 
     // TODO: refactor
@@ -137,6 +139,7 @@ public class MainWindow extends Application {
                 .build();
         SetParams param = new SetParams();
         double winnerValue = param.setParams(read);
+        executionTime = param.getExecutionTime();
         return winnerValue;
     }
 }

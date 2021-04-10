@@ -7,8 +7,9 @@ public class SetParams {
     private GradeStrategy grade;
     private Inversion inversion;
     private Elite elite;
+    private long executionTime;
 
-    public double  setParams(ReadingAttributes attributes) {
+    public double setParams(ReadingAttributes attributes) {
         Algorithm algorithm = new Algorithm();
         Population population = new Population(attributes.getPopulationSize(), attributes.getChromosomeAccuracy(),
                 attributes.getPopulationLeftBoundary(), attributes.getPopulationRightBoundary());
@@ -19,9 +20,15 @@ public class SetParams {
         setSelectionStrategy(attributes.getSelectionStrategy(), attributes.getSelectionParameter());
         inversion = new Inversion(attributes.getInversionChance());
         elite = new Elite(attributes.getEliteElements());
+        long startExecution = System.currentTimeMillis();
         algorithm.makeAlgorithm(population, crossing, grade, mutation, selection, inversion, elite);
+        executionTime = System.currentTimeMillis() - startExecution;
         System.out.println("zwyciezca to: " + algorithm.getWinner());
         return algorithm.getWinner();
+    }
+
+    public long getExecutionTime() {
+        return executionTime;
     }
 
     private void setCrossingStrategy(StrategyEnums.CrossingOptions strategy, double chance) {
