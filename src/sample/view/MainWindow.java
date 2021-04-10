@@ -12,12 +12,12 @@ import netscape.javascript.JSObject;
 import org.w3c.dom.Element;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
+import sample.genetic.core.PlotData;
 import sample.genetic.core.ReadingAttributes;
 import sample.genetic.core.SetParams;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -34,6 +34,7 @@ public class MainWindow extends Application {
     private Scene menuScene;
     private WebViewConnector webViewConnector;
     private long executionTime;
+    private String template = PlotData.getPlotHtmlTemplate();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -61,7 +62,6 @@ public class MainWindow extends Application {
         this.primaryStage.setHeight(768);
         this.menuScene = new Scene(this.root, 1366, 768);
         this.primaryStage.setScene(this.menuScene);
-
 
     }
 
@@ -102,16 +102,27 @@ public class MainWindow extends Application {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 try {
                     this.displayResult(winner);
-                    // TODO: copy result-plots.html from template & append json data
-                    Path path = Paths.get("result-plots.html");
-                    File file = new File(path.toAbsolutePath().toString());
-                    Desktop.getDesktop().browse(new URI(file.toURI().toString()));
+                    createResultFile();
                 } catch (IOException | URISyntaxException e) {
                     this.webViewConnector.unsetSpinnerOverlay();
                     e.printStackTrace();
                 }
             }
         });
+    }
+
+    private void createResultFile() throws IOException, URISyntaxException {
+        String updatedTemplate = template.replace("//INSERT_JSON_HERE", "const json = `" + PlotData.getPlotData() + "`;");
+
+        File resultHtmlFile = new File("result-plots.html");
+        resultHtmlFile.createNewFile();
+        FileWriter writer = new FileWriter("result-plots.html");
+        writer.write(updatedTemplate);
+        writer.close();
+
+        Path path = Paths.get("result-plots.html");
+        File file = new File(path.toAbsolutePath().toString());
+        Desktop.getDesktop().browse(new URI(file.toURI().toString()));
     }
 
     private void displayResult(double winner) {
@@ -141,6 +152,8 @@ public class MainWindow extends Application {
         SetParams param = new SetParams();
         double winnerValue = param.setParams(read);
         executionTime = param.getExecutionTime();
+        PlotData.createEpochsAxis(params.getEpochsNumber());
+
         return winnerValue;
     }
 }
