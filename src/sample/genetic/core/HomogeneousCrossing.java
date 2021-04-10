@@ -35,9 +35,9 @@ public class HomogeneousCrossing implements CrossingStrategy{
             if(crossingChance <= chance) {
                 List<String> firstChromosomes = new ArrayList<>();
                 List<String> secondChromosomes = new ArrayList<>();
-                String firstChildChromosome = "";
-                String secondChildChromosome = "";
                 for(int k = 0; k < 2; k++) {
+                    String firstChildChromosome = "";
+                    String secondChildChromosome = "";
                     for (int i = 1; i < population.getChromosomeSize(); i += 2) {
                         firstChildChromosome += population.getElement(firstParent).getChromosome(k).charAt(i - 1);
                         firstChildChromosome += population.getElement(secondParent).getChromosome(k).charAt(i);
