@@ -1,6 +1,7 @@
 package sample.view;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.concurrent.Worker;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
@@ -13,8 +14,17 @@ import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
 import sample.genetic.core.ReadingAttributes;
 import sample.genetic.core.SetParams;
+
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
+import java.util.concurrent.*;
 
 public class MainWindow extends Application {
     private Stage primaryStage;
@@ -75,15 +85,39 @@ public class MainWindow extends Application {
 
     private EventListener getRunButtonListener() {
         return evt -> {
-            System.out.println("Run button clicked...");
+            this.webViewConnector.setSpinnerOverlay();
             Map<String, String> params = webViewConnector.getParameters();
             sample.view.Parameters parsedParams = ParametersMapper.toParameters(params);
-            double winner = this.runAlgorithm(parsedParams);
-            Element learningStatus = this.webEngine.getDocument().getElementById("learningStatus");
-            this.webViewConnector.setLearningStatus("The winner is: " + winner);
+
+            CompletableFuture
+                    .supplyAsync(() -> this.runAlgorithm(parsedParams))
+                    .thenAccept(this::displayLearningResult);
+
         };
     }
 
+    private void displayLearningResult(Double winner) {
+        Platform.runLater(() -> {
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+                try {
+                    this.displayResult(winner);
+                    Path path = Paths.get("src/resources/result-plots.html");
+                    File file = new File(path.toAbsolutePath().toString());
+                    Desktop.getDesktop().browse(new URI(file.toURI().toString()));
+                } catch (IOException | URISyntaxException e) {
+                    this.webViewConnector.unsetSpinnerOverlay();
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void displayResult(double winner) {
+        this.webViewConnector.unsetSpinnerOverlay();
+        this.webViewConnector.setLearningStatus("The winner is: " + winner);
+    }
+
+    // TODO: refactor
     private double runAlgorithm(sample.view.Parameters params) {
         ReadingAttributes read = new ReadingAttributes.AttributesBuilder()
                 .populationSize(params.getPopulationSize())

@@ -13,14 +13,7 @@ public class WebViewConnector {
         this.jsConnector = jsConnector;
     }
 
-    public void run() {
-        System.out.println("called run..");
-        this.jsConnector.call("sendResult", "Loading...");
-        // TODO: start learning...
-    }
-
     public void sendParameter(String id, String value) {
-        System.out.println("adding: id=" + id + "; value=" + value);
         this.parameters.put(id, value);
     }
 
@@ -30,5 +23,13 @@ public class WebViewConnector {
 
     public void setLearningStatus(String status) {
         this.jsConnector.call("sendResult", status);
+    }
+
+    public void setSpinnerOverlay() {
+        this.jsConnector.call("setSpinnerOverlay");
+    }
+
+    public void unsetSpinnerOverlay() {
+        this.jsConnector.call("unsetSpinnerOverlay");
     }
 }
