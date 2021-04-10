@@ -5,6 +5,7 @@ public class RouletteSelection implements SelectionStrategy{
         Population population1 = new Population(population);
         double sum = 0;
         double max = 0;
+
         for(int i = 0; i < population.getPopulationSize(); i++) {
             max += population.getElement(i).getGrade();
         }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Population {
 
-    public Population(int populationSize, int chromosomeAccuracy, double leftBoundary, double rightBoundary) {
+    public Population(int populationSize, int chromosomeAccuracy, double leftBoundary, double rightBoundary, int eliteElements) {
         this.leftBoundary = leftBoundary;
         this.rightBoundary = rightBoundary;
         population = new ArrayList<>();
@@ -26,13 +26,16 @@ public class Population {
             }
             population.add(new Element(chromosomes.get(0),chromosomes.get(1), 0));
         }
+
         this.populationSize = populationSize;
+        this.basePopulationSize = populationSize - eliteElements;
         this.chromosomeAccuracy = chromosomeAccuracy;
     }
 
     public Population(Population populationOld) {
         this.population = new ArrayList<>();
         this.populationSize = 0;
+        this.basePopulationSize = populationOld.basePopulationSize;
         this.chromosomeAccuracy = populationOld.getChromosomeAccuracy();
         this.leftBoundary = populationOld.getLeftBoundary();
         this.rightBoundary = populationOld.getRightBoundary();
@@ -50,6 +53,10 @@ public class Population {
 
     public Element getLastElement() {
         return population.get(population.size() - 1);
+    }
+
+    public int getBasePopulationSize() {
+        return this.basePopulationSize;
     }
 
     public void clearPopulation() {
@@ -104,6 +111,7 @@ public class Population {
 
     private ArrayList<Element> population;
     private int populationSize;
+    private final int basePopulationSize;
     private final int chromosomeSize;
     private final double leftBoundary;
     private final double rightBoundary;

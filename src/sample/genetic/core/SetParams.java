@@ -12,7 +12,7 @@ public class SetParams {
     public double setParams(ReadingAttributes attributes) {
         Algorithm algorithm = new Algorithm();
         Population population = new Population(attributes.getPopulationSize(), attributes.getChromosomeAccuracy(),
-                attributes.getPopulationLeftBoundary(), attributes.getPopulationRightBoundary());
+                attributes.getPopulationLeftBoundary(), attributes.getPopulationRightBoundary(), attributes.getEliteElements());
         algorithm.setNumberOfEpochs(attributes.getNumberOfEpochs());
         setCrossingStrategy(attributes.getCrossingStrategy(), attributes.getCrossingChance());
         setGradeStrategy(attributes.getGradeStrategy());

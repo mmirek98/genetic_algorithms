@@ -18,20 +18,19 @@ public class Algorithm {
             grade.makeGrades(population);
         }
         elite.returnEliteElements(population);
-        setWinner(population, grade);
+        setWinner(population);
     }
 
-    void setWinner(Population population, GradeStrategy grade) {
+    void setWinner(Population population) {
+        int maxIt = 0;
         double max = population.getElement(0).getGrade();
         for(int i = 0; i < population.getPopulationSize(); i++) {
             if(population.getElement(i).getGrade() > max) {
+                maxIt = i;
                 max = population.getElement(i).getGrade();
             }
         }
-        winner = max;
-        if(grade instanceof MinimalGrade) {
-            winner = 1/winner;
-        }
+        winner = Math.pow(population.getFirstChromosomeRealNumber(maxIt), 2) + Math.pow(population.getSecondChromosomeRealNumber(maxIt), 2);
     }
 
     public double getWinner() { return winner; }

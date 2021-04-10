@@ -10,26 +10,9 @@ public class TwoPointsCrossing implements CrossingStrategy{
         this.chance = chance;
     }
 
-    void printOldPopulation(Population population) {
-        System.out.println("rozmiar starej populacji: " + population.getPopulationSize());
-        System.out.println("stara populacja");
-        for(int i = 0; i < population.getPopulationSize(); i++) {
-            System.out.println(population.getElement(i).getChromosome(0));
-        }
-    }
-
-    void printNewPopulation(Population population) {
-        System.out.println("nowa populacja");
-        for(int i = 0; i < population.getPopulationSize(); i++) {
-            System.out.println(population.getElement(i).getChromosome(0));
-        }
-        System.out.println("rozmiar nowej populacji: " + population.getPopulationSize());
-    }
-
     public Population make(Population population) {
         Population newPopulation = new Population(population);
-        printOldPopulation(population);
-        while(newPopulation.getPopulationSize() < population.getPopulationSize()) {
+        while(newPopulation.getPopulationSize() < population.getBasePopulationSize()) {
             int firstParent = (int) (Math.random() * (population.getPopulationSize()));
             int secondParent = (int) (Math.random() * (population.getPopulationSize()));
             double crossingChance = Math.random();
@@ -72,7 +55,6 @@ public class TwoPointsCrossing implements CrossingStrategy{
                 newPopulation.addElement(secondChild);
             }
         }
-        printNewPopulation(newPopulation);
         return newPopulation;
     }
 }
