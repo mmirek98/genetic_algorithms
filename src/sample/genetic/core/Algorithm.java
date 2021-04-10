@@ -10,7 +10,9 @@ public class Algorithm {
         grade.makeGrades(population);
         population = elite.setEliteElements(population);
         for(int i = 0; i < numberOfEpochs; i++) {
-            population = elite.make(population);
+            elite.returnEliteElements(population);
+            PlotData.setParams(population);
+            population = elite.setEliteElements(population);
             population = selection.make(population);
             population = crossing.make(population);
             mutation.make(population);
@@ -30,7 +32,7 @@ public class Algorithm {
                 max = population.getElement(i).getGrade();
             }
         }
-        winner = Math.pow(population.getFirstChromosomeRealNumber(maxIt), 2) + Math.pow(population.getSecondChromosomeRealNumber(maxIt), 2);
+        winner = Math.pow(population.getFirstChromosomeRealNumber(maxIt), 2) + population.getSecondChromosomeRealNumber(maxIt);
     }
 
     public double getWinner() { return winner; }
