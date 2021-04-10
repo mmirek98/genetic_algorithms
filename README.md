@@ -2,22 +2,21 @@
 
 ## Configuration
 
-##### 1. Add following jars to the project (download JavaFX sdk from: https://gluonhq.com/products/javafx/):
+##### 1. Add following jars to the project (all required jars are in lib/ directory):
 ```
 - javafx.base.jar
-- javafx.controls.jar
-- javafx.fxml.jar
 - javafx.graphics.jar
 - javafx.web.jar
 - decimal4j-1.0.3.jar
+- json-simple-1.1.jar
 ```
 
 ##### 2. Set following VM options in Run/Debug configuration:
-```--module-path "path\to\installed\javafx_sdk\openjfx-17-ea+3_windows-x64_bin-sdk\javafx-sdk-17\lib" --add-modules=javafx.controls,javafx.web```
+```--module-path "{path\to\javafxsdk}\lib" --add-modules=javafx.controls,javafx.web```
 
-##### 3. If some errors occur at building project, make sure that you have following properties set:
+###### * If some errors occur at building project, make sure that you have following properties set:
 ```
-JRE: 1.7
+JRE: 1.8
 Module SDK: 1.8
 Language level: 8
 Project SDK: openjdk-15

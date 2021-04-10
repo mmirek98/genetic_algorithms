@@ -53,7 +53,7 @@ function setToDefault() {
     setFieldValue('crossProbability', 0.6);
     setFieldValue('inversionProbability', 0.1);
     setFieldValue('epochsCount', 1000);
-    setFieldValue('selectionParameter', 1);
+    setFieldValue('selectionParameter', 30);
 
     formFieldsIds.forEach(id => setFieldAsValid(id))
 }

@@ -32,7 +32,7 @@ public class Algorithm {
                 max = population.getElement(i).getGrade();
             }
         }
-        winner = Math.pow(population.getFirstChromosomeRealNumber(maxIt), 2) + population.getSecondChromosomeRealNumber(maxIt);
+        winner = Math.pow(population.getFirstChromosomeRealNumber(maxIt), 2) + Math.pow(population.getSecondChromosomeRealNumber(maxIt), 2);
     }
 
     public double getWinner() { return winner; }
