@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../javafx-sdk-11.0.2/lib/javafx.base.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/openjfx-17-ea+3_windows-x64_bin-sdk/javafx-sdk-17/lib/javafx.web.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../untitled/decimal4j-1.0.3.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/openjfx-17-ea+3_windows-x64_bin-sdk/javafx-sdk-17/lib/javafx.fxml.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,7 +28,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../javafx-sdk-17/lib/javafx-swt.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/openjfx-17-ea+3_windows-x64_bin-sdk/javafx-sdk-17/lib/javafx.base.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -37,7 +37,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../javafx-sdk-17/lib/javafx.base.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/openjfx-17-ea+3_windows-x64_bin-sdk/javafx-sdk-17/lib/javafx-swt.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -46,7 +46,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../javafx-sdk-17/lib/javafx.controls.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/openjfx-17-ea+3_windows-x64_bin-sdk/javafx-sdk-17/lib/javafx.controls.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -55,7 +55,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../javafx-sdk-17/lib/javafx.fxml.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/openjfx-17-ea+3_windows-x64_bin-sdk/javafx-sdk-17/lib/javafx.media.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -64,7 +64,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../javafx-sdk-17/lib/javafx.graphics.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/openjfx-17-ea+3_windows-x64_bin-sdk/javafx-sdk-17/lib/javafx.graphics.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -73,7 +73,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../javafx-sdk-17/lib/javafx.media.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/openjfx-17-ea+3_windows-x64_bin-sdk/javafx-sdk-17/lib/javafx.swing.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -82,16 +82,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../javafx-sdk-17/lib/javafx.swing.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../javafx-sdk-17/lib/javafx.web.jar!/" />
+          <root url="jar://$USER_HOME$/Downloads/decimal4j-1.0.3.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

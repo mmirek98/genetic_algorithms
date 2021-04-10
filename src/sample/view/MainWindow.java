@@ -102,7 +102,8 @@ public class MainWindow extends Application {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 try {
                     this.displayResult(winner);
-                    Path path = Paths.get("src/resources/result-plots.html");
+                    // TODO: copy result-plots.html from template & append json data
+                    Path path = Paths.get("result-plots.html");
                     File file = new File(path.toAbsolutePath().toString());
                     Desktop.getDesktop().browse(new URI(file.toURI().toString()));
                 } catch (IOException | URISyntaxException e) {
