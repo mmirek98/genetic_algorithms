@@ -1,5 +1,13 @@
 package app.genetic.core;
 
+import app.genetic.crossing.CrossingStrategy;
+import app.genetic.elite.Elite;
+import app.genetic.grade.GradeStrategy;
+import app.genetic.inversion.Inversion;
+import app.genetic.mutation.MutationStrategy;
+import app.genetic.selection.SelectionStrategy;
+import app.view.PlotData;
+
 public class Algorithm {
 
     public void setNumberOfEpochs(int numberOfEpochs) {

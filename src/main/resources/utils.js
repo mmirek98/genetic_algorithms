@@ -11,15 +11,12 @@ function handleSelectionMethodChange() {
 
     switch (selectionMethod) {
         case 'best':
-            // document.getElementById('selectionParameterLabel').innerText = 'best';
             setParameterFieldForBestSelection(selectionParameterField);
             break;
         case 'tournament':
-            // document.getElementById('selectionParameterLabel').innerText = 'tour';
             setParameterFieldForTournamentSelection(selectionParameterField);
             break;
         default:
-            // document.getElementById('selectionParameterLabel').innerText = 'other';
             unsetParameterSelectionField(selectionParameterField);
             break;
     }

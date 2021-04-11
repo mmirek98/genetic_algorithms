@@ -12,9 +12,8 @@ import netscape.javascript.JSObject;
 import org.w3c.dom.Element;
 import org.w3c.dom.events.EventListener;
 import org.w3c.dom.events.EventTarget;
-import app.genetic.core.PlotData;
-import app.genetic.core.ReadingAttributes;
-import app.genetic.core.SetParams;
+import app.genetic.core.AlgorithmAttributes;
+import app.genetic.core.AlgorithmRunner;
 
 import java.awt.*;
 import java.io.*;
@@ -36,6 +35,8 @@ public class MainWindow extends Application {
     private WebViewConnector webViewConnector;
     private long executionTime;
     private String template = PlotData.getPlotHtmlTemplate();
+    private final String replaceMarkInTemplate = "//INSERT_JSON_HERE";
+    private final String resultFilePath = "result-plots.html";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -54,7 +55,6 @@ public class MainWindow extends Application {
         this.webView = new WebView();
         this.webEngine = this.webView.getEngine();
         URL url = this.getClass().getResource("/index.html");
-        System.out.println(url.toString());
         this.webEngine.load(url.toString());
         this.root = new VBox();
         this.root.getChildren().addAll(this.webView);
@@ -64,7 +64,6 @@ public class MainWindow extends Application {
         this.primaryStage.setHeight(768);
         this.menuScene = new Scene(this.root, 1366, 768);
         this.primaryStage.setScene(this.menuScene);
-
     }
 
     private void setupUIConnection() {
@@ -115,20 +114,20 @@ public class MainWindow extends Application {
 
     private void createResultFile() throws IOException, URISyntaxException {
         this.deleteResultFileIfExists();
-        String updatedTemplate = template.replace("//INSERT_JSON_HERE", "const json = `" + PlotData.getPlotData() + "`;");
-        File resultHtmlFile = new File("result-plots.html");
+        String updatedTemplate = template.replace(replaceMarkInTemplate, "const json = `" + PlotData.getPlotData() + "`;");
+        File resultHtmlFile = new File(resultFilePath);
         resultHtmlFile.createNewFile();
-        FileWriter writer = new FileWriter("result-plots.html");
+        FileWriter writer = new FileWriter(resultFilePath);
         writer.write(updatedTemplate);
         writer.close();
 
-        Path path = Paths.get("result-plots.html");
+        Path path = Paths.get(resultFilePath);
         File file = new File(path.toAbsolutePath().toString());
         Desktop.getDesktop().browse(new URI(file.toURI().toString()));
     }
 
     private void deleteResultFileIfExists() throws IOException {
-        Files.deleteIfExists(new File("result-plots.html").toPath());
+        Files.deleteIfExists(new File(resultFilePath).toPath());
     }
 
     private void displayResult(double winner) {
@@ -137,9 +136,18 @@ public class MainWindow extends Application {
         this.webViewConnector.setExecutionTime("Execution time: " + this.executionTime + " ms");
     }
 
-    // TODO: refactor
     private double runAlgorithm(app.view.Parameters params) {
-        ReadingAttributes read = new ReadingAttributes.AttributesBuilder()
+        AlgorithmAttributes read = getAttributes(params);
+        AlgorithmRunner algorithmRunner = new AlgorithmRunner();
+        double winnerValue = algorithmRunner.learn(read);
+        executionTime = algorithmRunner.getExecutionTime();
+        PlotData.createEpochsAxis(params.getEpochsNumber());
+
+        return winnerValue;
+    }
+
+    private AlgorithmAttributes getAttributes(app.view.Parameters params) {
+        return new AlgorithmAttributes.AttributesBuilder()
                 .populationSize(params.getPopulationSize())
                 .populationLeftBoundary(params.getLeftRange())
                 .populationRightBoundary(params.getRightRange())
@@ -155,11 +163,5 @@ public class MainWindow extends Application {
                 .eliteElements(params.getEliteStrategyAmount())
                 .selectionParameter(params.getSelectionParameter())
                 .build();
-        SetParams param = new SetParams();
-        double winnerValue = param.setParams(read);
-        executionTime = param.getExecutionTime();
-        PlotData.createEpochsAxis(params.getEpochsNumber());
-
-        return winnerValue;
     }
 }

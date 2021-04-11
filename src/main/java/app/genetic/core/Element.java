@@ -26,8 +26,6 @@ public class Element implements Comparable<Element> {
             this.chromosome = chromosome;
         } else if (i == 1) {
             this.secondChromosome = secondChromosome;
-        } else {
-            System.out.println("err");
         }
     }
 

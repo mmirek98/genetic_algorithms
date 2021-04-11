@@ -3,22 +3,6 @@ package app.view;
 import app.genetic.core.StrategyEnums;
 import java.util.Map;
 
-
-//  'rangeBegin',
-//   'rangeEnd',
-//   'populationCount',
-//   'bitsCount',
-//   'epochsCount',
-//   'chromosomeAmount',
-//   'eliteStrategyAmount',
-//   'crossProbability',
-//   'mutationProbability',
-//   'inversionProbability',
-//   'selectionMethod',
-//   'crossMethod',
-//   'mutationMethod',
-//   'optimizationType'
-
 public class ParametersMapper {
     private static final String populationSizeId = "populationCount";
     private static final String epochsCountId = "epochsCount";
@@ -30,7 +14,6 @@ public class ParametersMapper {
     private static final String eliteStrategyElementsId = "eliteStrategyAmount";
     private static final String inversionChanceId = "inversionProbability";
     private static final String crossingChanceId = "crossProbability";
-    //    TODO: add following params to front & other required
     private static final String rangeBeginId = "rangeBegin";
     private static final String rangeEndId = "rangeEnd";
     private static final String chromosomeAccuracyId = "chromosomeAccuracy";
@@ -40,7 +23,6 @@ public class ParametersMapper {
     public static Parameters toParameters(Map<String, String> params) {
         Parameters parsedParameters = new Parameters();
 
-        // TODO: this may be builder
         setPopulationSize(Integer.parseInt(params.get(populationSizeId)), parsedParameters);
         setEpochsCount(Integer.parseInt(params.get(epochsCountId)), parsedParameters);
         setSelectionStrategy(params.get(selectionStrategyId), parsedParameters);
