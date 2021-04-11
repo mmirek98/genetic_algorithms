@@ -2,6 +2,8 @@ package app.genetic.core;
 
 import app.genetic.crossing.*;
 import app.genetic.elite.Elite;
+import app.genetic.function.BealeFunction;
+import app.genetic.function.Function;
 import app.genetic.grade.GradeStrategy;
 import app.genetic.grade.MaximalGrade;
 import app.genetic.grade.MinimalGrade;
@@ -24,10 +26,12 @@ public class AlgorithmRunner {
     private Inversion inversion;
     private Elite elite;
     private long executionTime;
+    private Function functionToOptimize = new BealeFunction();
 
     public double learn(AlgorithmAttributes attributes) {
         PlotData.clearPlotData();
-        Algorithm algorithm = new Algorithm();
+        PlotData.setFunction(this.functionToOptimize);
+        Algorithm algorithm = new Algorithm(this.functionToOptimize);
         Population population = new Population(attributes.getPopulationSize(), attributes.getChromosomeAccuracy(),
                 attributes.getPopulationLeftBoundary(), attributes.getPopulationRightBoundary(), attributes.getEliteElements());
         algorithm.setNumberOfEpochs(attributes.getNumberOfEpochs());
@@ -58,8 +62,8 @@ public class AlgorithmRunner {
 
     private void setGradeStrategy(StrategyEnums.GradeOptions strategy) {
         switch (strategy) {
-            case MAXIMAL_GRADE -> grade = new MaximalGrade();
-            case MINIMAL_GRADE -> grade = new MinimalGrade();
+            case MAXIMAL_GRADE -> grade = new MaximalGrade(functionToOptimize);
+            case MINIMAL_GRADE -> grade = new MinimalGrade(functionToOptimize);
         }
     }
 

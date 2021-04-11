@@ -1,6 +1,7 @@
 package app.view;
 
 import app.genetic.core.Population;
+import app.genetic.function.Function;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import java.util.ArrayList;
@@ -11,6 +12,10 @@ public class PlotData {
     private static List<Double> maxGrades = new ArrayList<>();
     private static List<Double> means = new ArrayList<>();
     private static List<Double> standardDeviations = new ArrayList<>();
+    private static Function functionToOptimize;
+    public static void setFunction(Function fun) {
+        functionToOptimize = fun;
+    }
 
     public static void clearPlotData() {
         epochs.clear();
@@ -58,11 +63,6 @@ public class PlotData {
         return maxGrades;
     }
 
-    public static String getMaxGradesAsJson() {
-        JSONObject obj = new JSONObject();
-        return JSONArray.toJSONString(maxGrades);
-    }
-
     public static List<Double> getMeans() {
         return means;
     }
@@ -107,7 +107,7 @@ public class PlotData {
     }
 
     private static double calculateValue(int i, Population population) {
-        return Math.pow(population.getFirstChromosomeRealNumber(i), 2) + Math.pow(population.getSecondChromosomeRealNumber(i), 2);
+        return functionToOptimize.calculate(population.getFirstChromosomeRealNumber(i), population.getSecondChromosomeRealNumber(i));
     }
 
     public static final String getPlotHtmlTemplate() {

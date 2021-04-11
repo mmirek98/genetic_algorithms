@@ -2,6 +2,7 @@ package app.genetic.core;
 
 import app.genetic.crossing.CrossingStrategy;
 import app.genetic.elite.Elite;
+import app.genetic.function.Function;
 import app.genetic.grade.GradeStrategy;
 import app.genetic.inversion.Inversion;
 import app.genetic.mutation.MutationStrategy;
@@ -9,6 +10,11 @@ import app.genetic.selection.SelectionStrategy;
 import app.view.PlotData;
 
 public class Algorithm {
+    Function functionToOptimize;
+
+    public Algorithm(Function functionToOptimize) {
+        this.functionToOptimize = functionToOptimize;
+    }
 
     public void setNumberOfEpochs(int numberOfEpochs) {
         this.numberOfEpochs = numberOfEpochs;
@@ -40,7 +46,9 @@ public class Algorithm {
                 max = population.getElement(i).getGrade();
             }
         }
-        winner = Math.pow(population.getFirstChromosomeRealNumber(maxIt), 2) + Math.pow(population.getSecondChromosomeRealNumber(maxIt), 2);
+        winner = this.functionToOptimize.calculate(
+                population.getFirstChromosomeRealNumber(maxIt),
+                population.getSecondChromosomeRealNumber(maxIt));
     }
 
     public double getWinner() { return winner; }

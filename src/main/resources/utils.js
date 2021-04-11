@@ -41,8 +41,8 @@ function unsetParameterSelectionField(field) {
 }
 
 function setToDefault() {
-    setFieldValue('rangeBegin', 1);
-    setFieldValue('rangeEnd', 10);
+    setFieldValue('rangeBegin', -4.5);
+    setFieldValue('rangeEnd', 4.5);
     setFieldValue('populationCount', 100);
     setFieldValue('chromosomeAccuracy', 6);
     setFieldValue('epochsCount', 1000);
