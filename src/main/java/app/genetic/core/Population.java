@@ -26,7 +26,6 @@ public class Population {
             }
             population.add(new Element(chromosomes.get(0),chromosomes.get(1), 0));
         }
-
         this.populationSize = populationSize;
         this.basePopulationSize = populationSize - eliteElements;
         this.chromosomeAccuracy = chromosomeAccuracy;
@@ -81,13 +80,35 @@ public class Population {
 
     public double getFirstChromosomeRealNumber(int i) {
         double range = rightBoundary - leftBoundary;
-        double summary = leftBoundary + Integer.parseInt(population.get(i).getChromosome(0), 2) * range / (Math.pow(2, chromosomeSize) - 1);
+        String str = population.get(i).getChromosome(0);
+        double doo = 0;
+        for (int j = 0; j < str.length(); j++) {
+
+            if (str.charAt(j) == '1') {
+                int len = str.length() - 1 - j;
+                doo += Math.pow(2, len);
+            }
+        }
+        int obl1 = (int) doo;
+        double summary = leftBoundary + obl1 * range / (Math.pow(2, chromosomeSize) - 1);
+        //double summary = leftBoundary + Integer.parseInt(population.get(i).getChromosome(0), 2) * range / (Math.pow(2, chromosomeSize) - 1);
         return DoubleRounder.round(summary, chromosomeAccuracy);
     }
 
     public double getSecondChromosomeRealNumber(int i) {
         double range = rightBoundary - leftBoundary;
-        double summary = leftBoundary + Integer.parseInt(population.get(i).getChromosome(1), 2) * range / (Math.pow(2, chromosomeSize) - 1);
+        String str = population.get(i).getChromosome(1);
+        double doo = 0;
+        for (int j = 0; j < str.length(); j++) {
+
+            if (str.charAt(j) == '1') {
+                int len = str.length() - 1 - j;
+                doo += Math.pow(2, len);
+            }
+        }
+        int obl1 = (int) doo;
+        double summary = leftBoundary + obl1 * range / (Math.pow(2, chromosomeSize) - 1);
+        //double summary = leftBoundary + Integer.parseInt(population.get(i).getChromosome(1), 2) * range / (Math.pow(2, chromosomeSize) - 1);
         return DoubleRounder.round(summary, chromosomeAccuracy);
     }
 
