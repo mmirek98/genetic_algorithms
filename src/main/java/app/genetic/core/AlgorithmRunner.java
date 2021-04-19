@@ -7,11 +7,8 @@ import app.genetic.function.Function;
 import app.genetic.grade.GradeStrategy;
 import app.genetic.grade.MaximalGrade;
 import app.genetic.grade.MinimalGrade;
-import app.genetic.inversion.Inversion;
-import app.genetic.mutation.EdgeMutation;
 import app.genetic.mutation.MutationStrategy;
-import app.genetic.mutation.OnePointMutation;
-import app.genetic.mutation.TwoPointsMutation;
+import app.genetic.mutation.UniformMutation;
 import app.genetic.selection.BestSelection;
 import app.genetic.selection.RouletteSelection;
 import app.genetic.selection.SelectionStrategy;
@@ -23,7 +20,6 @@ public class AlgorithmRunner {
     private MutationStrategy mutation;
     private CrossingStrategy crossing;
     private GradeStrategy grade;
-    private Inversion inversion;
     private Elite elite;
     private long executionTime;
     private Function functionToOptimize = new BealeFunction();
@@ -39,10 +35,9 @@ public class AlgorithmRunner {
         setGradeStrategy(attributes.getGradeStrategy());
         setMutationStrategy(attributes.getMutationStrategy(), attributes.getMutationChance());
         setSelectionStrategy(attributes.getSelectionStrategy(), attributes.getSelectionParameter());
-        inversion = new Inversion(attributes.getInversionChance());
         elite = new Elite(attributes.getEliteElements());
         long startExecution = System.currentTimeMillis();
-        algorithm.makeAlgorithm(population, crossing, grade, mutation, selection, inversion, elite);
+        algorithm.makeAlgorithm(population, crossing, grade, mutation, selection, elite);
         executionTime = System.currentTimeMillis() - startExecution;
         return algorithm.getWinner();
     }
@@ -53,10 +48,8 @@ public class AlgorithmRunner {
 
     private void setCrossingStrategy(StrategyEnums.CrossingOptions strategy, double chance) {
         switch (strategy) {
-            case HOMOGENEOUS_CROSSING -> crossing = new HomogeneousCrossing(chance);
-            case ONE_POINT_CROSSING -> crossing = new OnePointCrossing(chance);
-            case THREE_POINTS_CROSSING -> crossing = new ThreePointsCrossing(chance);
-            case TWO_POINTS_CROSSING -> crossing = new TwoPointsCrossing(chance);
+            case ARITHMETIC_CROSSING -> crossing = new ArithmeticCrossing(chance);
+            case HEURISTIC_CROSSING -> crossing = new HeuristicCrossing(chance);
         }
     }
 
@@ -69,9 +62,7 @@ public class AlgorithmRunner {
 
     private void setMutationStrategy(StrategyEnums.MutationOptions strategy, double chance) {
         switch (strategy) {
-            case EDGE_MUTATION -> mutation = new EdgeMutation(chance);
-            case ONE_POINT_MUTATION -> mutation = new OnePointMutation(chance);
-            case TWO_POINTS_MUTATION -> mutation = new TwoPointsMutation(chance);
+            case UNIFORM_MUTATION -> mutation = new UniformMutation(chance);
         }
     }
 

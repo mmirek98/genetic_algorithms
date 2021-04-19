@@ -12,7 +12,6 @@ public class ParametersMapper {
     private static final String mutationStrategyId = "mutationMethod";
     private static final String mutationChanceId = "mutationProbability";
     private static final String eliteStrategyElementsId = "eliteStrategyAmount";
-    private static final String inversionChanceId = "inversionProbability";
     private static final String crossingChanceId = "crossProbability";
     private static final String rangeBeginId = "rangeBegin";
     private static final String rangeEndId = "rangeEnd";
@@ -30,7 +29,6 @@ public class ParametersMapper {
         setMutationStrategy(params.get(mutationStrategyId), parsedParameters);
         setMutationChance(Double.parseDouble(params.get(mutationChanceId)), parsedParameters);
         setEliteStrategyElements(Integer.parseInt(params.get(eliteStrategyElementsId)), parsedParameters);
-        setInversionChance(Double.parseDouble(params.get(inversionChanceId)), parsedParameters);
         setCrossingChance(Double.parseDouble(params.get(crossingChanceId)), parsedParameters);
         setChromosomeAccuracy(Integer.parseInt(params.get(chromosomeAccuracyId)), parsedParameters);
         setGradeStrategy(params.get(gradeStrategyId), parsedParameters);
@@ -67,10 +65,9 @@ public class ParametersMapper {
 
     private static void setCrossingStrategy(String strategy, Parameters parsedParameters) {
         StrategyEnums.CrossingOptions chosenStrategy = switch (strategy) {
-            case "twoPoints" -> StrategyEnums.CrossingOptions.TWO_POINTS_CROSSING;
-            case "threePoints" -> StrategyEnums.CrossingOptions.THREE_POINTS_CROSSING;
-            case "homo" -> StrategyEnums.CrossingOptions.HOMOGENEOUS_CROSSING;
-            default -> StrategyEnums.CrossingOptions.ONE_POINT_CROSSING;
+            case "arithmetic" -> StrategyEnums.CrossingOptions.ARITHMETIC_CROSSING;
+            case "heuristic" -> StrategyEnums.CrossingOptions.HEURISTIC_CROSSING;
+            default -> StrategyEnums.CrossingOptions.ARITHMETIC_CROSSING;
         };
 
         parsedParameters.setCrossingStrategy(chosenStrategy);
@@ -78,9 +75,8 @@ public class ParametersMapper {
 
     private static void setMutationStrategy(String strategy, Parameters parsedParameters) {
         StrategyEnums.MutationOptions chosenStrategy = switch (strategy) {
-            case "twoPoints" -> StrategyEnums.MutationOptions.TWO_POINTS_MUTATION;
-            case "edge" -> StrategyEnums.MutationOptions.EDGE_MUTATION;
-            default -> StrategyEnums.MutationOptions.ONE_POINT_MUTATION;
+            case "twoPoints" -> StrategyEnums.MutationOptions.UNIFORM_MUTATION;
+            default -> StrategyEnums.MutationOptions.UNIFORM_MUTATION;
         };
 
         parsedParameters.setMutationStrategy(chosenStrategy);
@@ -92,10 +88,6 @@ public class ParametersMapper {
 
     private static void setEliteStrategyElements(int value, Parameters parsedParameters) {
         parsedParameters.setEliteStrategyAmount(value);
-    }
-
-    private static void setInversionChance(double value, Parameters parsedParameters) {
-        parsedParameters.setInversionChance(value);
     }
 
     private static void setCrossingChance(double value, Parameters parsedParameters) {

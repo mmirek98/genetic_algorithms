@@ -13,8 +13,8 @@ public class MaximalGrade extends GradeStrategy {
         for(int i = 0; i < population.getPopulationSize(); i++) {
             population.getElement(i).setGrade(
                     functionToOptimize.calculate(
-                            population.getFirstChromosomeRealNumber(i),
-                            population.getSecondChromosomeRealNumber(i)));
+                            population.getElement(i).getGene(0),
+                            population.getElement(i).getGene(1)));
             if(population.getElement(i).getGrade() < min) {
                 min = population.getElement(i).getGrade();
             }

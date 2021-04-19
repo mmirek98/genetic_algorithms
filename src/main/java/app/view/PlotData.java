@@ -107,7 +107,7 @@ public class PlotData {
     }
 
     private static double calculateValue(int i, Population population) {
-        return functionToOptimize.calculate(population.getFirstChromosomeRealNumber(i), population.getSecondChromosomeRealNumber(i));
+        return functionToOptimize.calculate(population.getElement(i).getGene(0), population.getElement(i).getGene(1));
     }
 
     public static final String getPlotHtmlTemplate() {

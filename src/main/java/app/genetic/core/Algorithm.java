@@ -4,7 +4,6 @@ import app.genetic.crossing.CrossingStrategy;
 import app.genetic.elite.Elite;
 import app.genetic.function.Function;
 import app.genetic.grade.GradeStrategy;
-import app.genetic.inversion.Inversion;
 import app.genetic.mutation.MutationStrategy;
 import app.genetic.selection.SelectionStrategy;
 import app.view.PlotData;
@@ -20,7 +19,7 @@ public class Algorithm {
         this.numberOfEpochs = numberOfEpochs;
     }
 
-    public void makeAlgorithm(Population population, CrossingStrategy crossing, GradeStrategy grade, MutationStrategy mutation, SelectionStrategy selection, Inversion inversion, Elite elite) {
+    public void makeAlgorithm(Population population, CrossingStrategy crossing, GradeStrategy grade, MutationStrategy mutation, SelectionStrategy selection, Elite elite) {
         grade.makeGrades(population);
         population = elite.setEliteElements(population);
         for(int i = 0; i < numberOfEpochs; i++) {
@@ -30,7 +29,6 @@ public class Algorithm {
             population = selection.make(population);
             population = crossing.make(population);
             mutation.make(population);
-            inversion.make(population);
             grade.makeGrades(population);
         }
         elite.returnEliteElements(population);
@@ -47,8 +45,8 @@ public class Algorithm {
             }
         }
         winner = this.functionToOptimize.calculate(
-                population.getFirstChromosomeRealNumber(maxIt),
-                population.getSecondChromosomeRealNumber(maxIt));
+                population.getElement(maxIt).getGene(0),
+                population.getElement(maxIt).getGene(1));
     }
 
     public double getWinner() { return winner; }

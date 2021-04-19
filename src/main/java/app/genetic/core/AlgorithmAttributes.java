@@ -10,7 +10,6 @@ public class AlgorithmAttributes {
     private final int numberOfEpochs;
     private final double mutationChance;
     private final double crossingChance;
-    private final double inversionChance;
     private final int eliteElements;
     private final int chromosomeAccuracy;
     private final double populationLeftBoundary;
@@ -26,7 +25,6 @@ public class AlgorithmAttributes {
         this.numberOfEpochs = builder.numberOfEpochs;
         this.mutationChance = builder.mutationChance;
         this.crossingChance = builder.crossingChance;
-        this.inversionChance = builder.inversionChance;
         this.eliteElements = builder.eliteElements;
         this.chromosomeAccuracy = builder.chromosomeAccuracy;
         this.populationLeftBoundary = builder.populationLeftBoundary;
@@ -50,9 +48,6 @@ public class AlgorithmAttributes {
         return crossingChance;
     }
 
-    public double getInversionChance() {
-        return inversionChance;
-    }
 
     public double getPopulationLeftBoundary() {
         return populationLeftBoundary;
@@ -97,7 +92,6 @@ public class AlgorithmAttributes {
         private int numberOfEpochs;
         private double mutationChance;
         private double crossingChance;
-        private double inversionChance;
         private double populationLeftBoundary;
         private double populationRightBoundary;
         private int eliteElements;
@@ -141,11 +135,6 @@ public class AlgorithmAttributes {
 
         public AttributesBuilder crossingChance(double crossingChance) {
             this.crossingChance = crossingChance;
-            return this;
-        }
-
-        public AttributesBuilder inversionChance(double inversionChance) {
-            this.inversionChance = inversionChance;
             return this;
         }
 

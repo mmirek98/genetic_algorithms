@@ -6,40 +6,30 @@ import java.util.List;
 
 public class Population {
 
-    public Population(int populationSize, int chromosomeAccuracy, double leftBoundary, double rightBoundary, int eliteElements) {
+    public Population(int populationSize, int geneAccuracy, double leftBoundary, double rightBoundary, int eliteElements) {
         this.leftBoundary = leftBoundary;
         this.rightBoundary = rightBoundary;
         population = new ArrayList<>();
-        String chromosome = "";
-        double range = (rightBoundary-leftBoundary) * Math.pow(10, chromosomeAccuracy);
-        chromosomeSize = (int) (log2(range)) + 1;
-
         for(int i = 0; i < populationSize; i++){
-            List<String> chromosomes = new ArrayList<>();
+            List<Double> genes = new ArrayList<>();
             for(int k = 0; k < 2; k++) {
-                for(int j = 0; j < chromosomeSize; j++) {
-                    double gene = DoubleRounder.round(Math.random(), 0);
-                    chromosome += String.valueOf((int) gene);
-                }
-                chromosomes.add(chromosome);
-                chromosome = "";
+                double gene = DoubleRounder.round((Math.random() * (rightBoundary - leftBoundary)) + leftBoundary, geneAccuracy);
+                genes.add(gene);
             }
-            population.add(new Element(chromosomes.get(0),chromosomes.get(1), 0));
+            population.add(new Element(genes.get(0),genes.get(1), 0));
         }
         this.populationSize = populationSize;
         this.basePopulationSize = populationSize - eliteElements;
-        this.chromosomeAccuracy = chromosomeAccuracy;
+        this.geneAccuracy = geneAccuracy;
     }
 
     public Population(Population populationOld) {
         this.population = new ArrayList<>();
         this.populationSize = 0;
         this.basePopulationSize = populationOld.basePopulationSize;
-        this.chromosomeAccuracy = populationOld.getChromosomeAccuracy();
+        this.geneAccuracy = populationOld.getGeneAccuracy();
         this.leftBoundary = populationOld.getLeftBoundary();
         this.rightBoundary = populationOld.getRightBoundary();
-        double range = (rightBoundary-leftBoundary) * Math.pow(10, chromosomeAccuracy);
-        chromosomeSize = (int) (log2(range)) + 1;
     }
 
     public ArrayList<Element> getPopulation() {
@@ -73,45 +63,6 @@ public class Population {
         populationSize--;
     }
 
-    double log2(double N)
-    {
-        return (Math.log(N) / Math.log(2));
-    }
-
-    public double getFirstChromosomeRealNumber(int i) {
-        double range = rightBoundary - leftBoundary;
-        String str = population.get(i).getChromosome(0);
-        double doo = 0;
-        for (int j = 0; j < str.length(); j++) {
-
-            if (str.charAt(j) == '1') {
-                int len = str.length() - 1 - j;
-                doo += Math.pow(2, len);
-            }
-        }
-        int obl1 = (int) doo;
-        double summary = leftBoundary + obl1 * range / (Math.pow(2, chromosomeSize) - 1);
-        //double summary = leftBoundary + Integer.parseInt(population.get(i).getChromosome(0), 2) * range / (Math.pow(2, chromosomeSize) - 1);
-        return DoubleRounder.round(summary, chromosomeAccuracy);
-    }
-
-    public double getSecondChromosomeRealNumber(int i) {
-        double range = rightBoundary - leftBoundary;
-        String str = population.get(i).getChromosome(1);
-        double doo = 0;
-        for (int j = 0; j < str.length(); j++) {
-
-            if (str.charAt(j) == '1') {
-                int len = str.length() - 1 - j;
-                doo += Math.pow(2, len);
-            }
-        }
-        int obl1 = (int) doo;
-        double summary = leftBoundary + obl1 * range / (Math.pow(2, chromosomeSize) - 1);
-        //double summary = leftBoundary + Integer.parseInt(population.get(i).getChromosome(1), 2) * range / (Math.pow(2, chromosomeSize) - 1);
-        return DoubleRounder.round(summary, chromosomeAccuracy);
-    }
-
     public Element getElement(int i) {
         return population.get(i);
     }
@@ -120,10 +71,8 @@ public class Population {
         return populationSize;
     }
 
-    public int getChromosomeSize() { return chromosomeSize; }
-
-    public int getChromosomeAccuracy() {
-        return chromosomeAccuracy;
+    public int getGeneAccuracy() {
+        return geneAccuracy;
     }
 
     public double getLeftBoundary() { return leftBoundary; }
@@ -133,8 +82,7 @@ public class Population {
     private ArrayList<Element> population;
     private int populationSize;
     private final int basePopulationSize;
-    private final int chromosomeSize;
     private final double leftBoundary;
     private final double rightBoundary;
-    private final int chromosomeAccuracy;
+    private final int geneAccuracy;
 }

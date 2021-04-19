@@ -1,31 +1,32 @@
 package app.genetic.core;
 
 public class Element implements Comparable<Element> {
-    String chromosome;
-    String secondChromosome;
+    double gene;
+    double secondGene;
     double grade;
 
-    public Element(String chromosome, String secondChromosome, double grade) {
-        this.chromosome = chromosome;
-        this.secondChromosome = secondChromosome;
+    public Element(double gene, double secondGene, double grade) {
+        this.gene = gene;
+        this.secondGene = secondGene;
         this.grade = grade;
     }
 
-    public String getChromosome(int i) {
+    public double getGene(int i) {
         if(i == 0) {
-            return chromosome;
+            return gene;
         } else if(i == 1) {
-            return secondChromosome;
+            return secondGene;
         } else {
-            return "err";
+            System.out.println("err " + i);
+            return 0;
         }
     }
 
-    public void setChromosome(String chromosome, int i) {
+    public void setGene(double gene, int i) {
         if(i == 0) {
-            this.chromosome = chromosome;
+            this.gene = gene;
         } else if (i == 1) {
-            this.secondChromosome = secondChromosome;
+            this.secondGene = gene;
         }
     }
 
