@@ -23,11 +23,12 @@ public class HeuristicCrossing implements CrossingStrategy{
             double y1 = population.getElement(firstParent).getGene(1);
             double x2 = population.getElement(secondParent).getGene(0);
             double y2 = population.getElement(secondParent).getGene(1);
-
-            if (x2 > x1 && y2 > y1){
+            double firstParentGrade = population.getElement(firstParent).getGrade();
+            double secondParentGrade = population.getElement(secondParent).getGrade();
+            if (secondParentGrade > firstParentGrade){
                 if (crossingChance <= chance) {
-                    double x1new = k * (x2 - x1) + x1;
-                    double y1new = k * (y2 - y1) + y1;
+                    double x1new = k * (x2 - x1) + x2;
+                    double y1new = k * (y2 - y1) + y2;
 
                     Element firstChild = new Element(x1new, y1new, 0);
                     newPopulation.addElement(firstChild);
