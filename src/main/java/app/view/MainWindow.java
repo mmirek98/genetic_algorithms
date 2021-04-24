@@ -159,7 +159,6 @@ public class MainWindow extends Application {
                 .gradeStrategy(params.getGradeStrategy())
                 .crossingChance(params.getCrossingChance())
                 .mutationChance(params.getMutationChance())
-                .inversionChance(params.getInversionChance())
                 .eliteElements(params.getEliteStrategyAmount())
                 .selectionParameter(params.getSelectionParameter())
                 .build();

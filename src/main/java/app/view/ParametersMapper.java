@@ -36,6 +36,10 @@ public class ParametersMapper {
         setRangeEnd(Double.parseDouble(params.get(rangeEndId)), parsedParameters);
         setSelectionParameter(Double.parseDouble(params.get(selectionParameterId)), parsedParameters);
 
+        for (Map.Entry<String, String> entry : params.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
         return parsedParameters;
     }
 
@@ -74,11 +78,7 @@ public class ParametersMapper {
     }
 
     private static void setMutationStrategy(String strategy, Parameters parsedParameters) {
-        StrategyEnums.MutationOptions chosenStrategy = switch (strategy) {
-            case "twoPoints" -> StrategyEnums.MutationOptions.UNIFORM_MUTATION;
-            default -> StrategyEnums.MutationOptions.UNIFORM_MUTATION;
-        };
-
+        StrategyEnums.MutationOptions chosenStrategy = StrategyEnums.MutationOptions.UNIFORM_MUTATION;
         parsedParameters.setMutationStrategy(chosenStrategy);
     }
 
