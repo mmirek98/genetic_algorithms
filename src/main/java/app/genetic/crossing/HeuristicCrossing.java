@@ -16,7 +16,6 @@ public class HeuristicCrossing implements CrossingStrategy{
         Population newPopulation = new Population(population);
         while(newPopulation.getPopulationSize() < population.getBasePopulationSize()) {
             double k = Math.random();
-            System.out.println("Siema tu heuristic");
             int firstParent = (int) (Math.random() * (population.getPopulationSize()));
             int secondParent = (int) (Math.random() * (population.getPopulationSize()));
             double crossingChance = Math.random();

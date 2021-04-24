@@ -36,10 +36,6 @@ public class ParametersMapper {
         setRangeEnd(Double.parseDouble(params.get(rangeEndId)), parsedParameters);
         setSelectionParameter(Double.parseDouble(params.get(selectionParameterId)), parsedParameters);
 
-        for (Map.Entry<String, String> entry : params.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-
         return parsedParameters;
     }
 
