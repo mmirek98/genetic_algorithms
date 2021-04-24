@@ -32,6 +32,10 @@ public class Population {
         this.rightBoundary = populationOld.getRightBoundary();
     }
 
+    public boolean checkRange(double number) {
+        return number <= rightBoundary && number >= leftBoundary;
+    }
+
     public ArrayList<Element> getPopulation() {
         return population;
     }
